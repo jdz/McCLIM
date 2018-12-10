@@ -472,7 +472,7 @@
     (with-drawing-options (stream :text-style text-style)
       (prog1
 	;; not sure whether anyone wants the return value...
-	(format-graph-from-roots (list class)
+	(format-graph-from-roots (if (consp class) class (list class))
 				 #'(lambda (class stream)
 				     (with-drawing-options (stream :ink normal-ink
 								   :text-style text-style)
