@@ -120,6 +120,9 @@ forms."
                                     (alexandria:when-let ((glyphset (cached-picture/glyphset cached)))
                                       (xlib:render-free-glyph-set glyphset))))))
 
+(defmethod freetype-font/size ((font freetype-font))
+  (* 2 (slot-value font 'size)))
+
 (defmethod print-object ((obj freetype-font) stream)
   (print-unreadable-object (obj stream :type t :identity nil)
     (format stream "FACE ~s SIZE ~s" (freetype-font/face obj) (freetype-font/size obj))))
@@ -572,10 +575,10 @@ or NIL if the current transformation is the identity transformation."
   (list (cond
           ((typep family 'freetype-font-family) `(:family . ,(clim-extensions:font-family-name family)))
           ((stringp family) `(:family . ,family))
-          ((eq family :fix) '(:spacing . 100))
-          ((eq family :sans-serif) '(:family . "DejaVu Sans"))
-          ((eq family :serif) '(:family . "DejaVu Serif"))
-          (t '(:family . "DejaVu Sans")))))
+          ((eq family :fix) '(:family . "Iosevka Custom"))
+          ((eq family :sans-serif) '(:family . "Roboto Condensed"))
+          ((eq family :serif) '(:family . "Roboto Slab"))
+          (t '(:family . "Roboto Condensed")))))
 
 (defun make-face-pattern (face)
   (loop
