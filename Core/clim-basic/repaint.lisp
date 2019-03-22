@@ -85,7 +85,12 @@ want to do the same.")
       ;; This causes applications which want to do a double-buffered repaint,
       ;; such as the logic cube, to flicker. On the other hand, it also stops
       ;; things such as the listener wholine from overexposing their text.
-      (handle-repaint sheet r))))
+      (multiple-value-bind (w h)
+          (rectangle-size r)
+        (if (and (zerop w) (zerop h))
+            (format *trace-output* "~&Not repainting empty rect of ~S for ~S~%"
+                    sheet region)
+            (handle-repaint sheet r))))))
 
 (defmethod repaint-sheet :after ((sheet sheet-parent-mixin) region)
   ;; propagate repaint to unmirrored sheets
