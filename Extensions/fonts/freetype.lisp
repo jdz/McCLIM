@@ -16,7 +16,7 @@
 
 (defparameter *freetype-font-scale* 26.6)
 
-(defvar *enable-autohint* t)
+(defvar *enable-autohint* nil)
 
 (defvar *lock* (bordeaux-threads:make-recursive-lock))
 
@@ -121,7 +121,7 @@ forms."
                                       (xlib:render-free-glyph-set glyphset))))))
 
 (defmethod freetype-font/size ((font freetype-font))
-  (* 2 (slot-value font 'size)))
+  (* 1.6 (slot-value font 'size)))
 
 (defmethod print-object ((obj freetype-font) stream)
   (print-unreadable-object (obj stream :type t :identity nil)
@@ -576,8 +576,8 @@ or NIL if the current transformation is the identity transformation."
           ((typep family 'freetype-font-family) `(:family . ,(clim-extensions:font-family-name family)))
           ((stringp family) `(:family . ,family))
           ((eq family :fix) '(:family . "Iosevka Custom"))
-          ((eq family :sans-serif) '(:family . "Roboto Condensed"))
-          ((eq family :serif) '(:family . "Roboto Slab"))
+          ((eq family :sans-serif) '(:family . "Inter"))
+          ((eq family :serif) '(:family . "IBM Plex Serif"))
           (t '(:family . "Roboto Condensed")))))
 
 (defun make-face-pattern (face)
